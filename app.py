@@ -18,7 +18,7 @@ db = client["Products"]
 products = db["product"]
 
 #Stripe setup
-#stripe.api_key = os.environ['STRIPE_API_KEY']
+stripe.api_key = os.environ['STRIPE_API_KEY']
 app.secret_key = os.environ['APP_SECRET_KEY']
 # ====================== ROUTES ========================
 @app.route('/')
