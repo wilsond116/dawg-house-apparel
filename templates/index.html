@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dawg House Apparel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+    body {
+      background-color: #111;
+      color: #fff;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #333;
+      border-top: 1px solid #333;
+      background-color: #111;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 0.5rem 0;
+    }
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #e63946;
+    }
+
+    .hero {
+      height: 60vh;
+      background: url('/static/logo4.png') center center/65% no-repeat;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin: 3rem 0 1rem;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .product-card {
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover {
+      transform: scale(1.03);
+    }
+    .product-img {
+      width: 100%;
+      height: 200px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .about {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+    }
+    .about h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .about p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .contact {
+      text-align: center;
+      padding: 2rem;
+    }
+    .contact p {
+      margin: 0.5rem 0;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #000;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">DAWG HOUSE</div>
+    <nav>
+      <a href="/#products"></a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+      <a href="/cart">Cart</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+  </section>
+
+  <div class="products">
+    <a href="/product/blue-dawg-tee" style="text-decoration: none; color: inherit;">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="/static/Dawg-tee-front.jpeg" alt="Dawg Tee" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
+        </div>
+        <h3>Blue Dawg Tee</h3>
+        <p>$35.00</p>
+      </div>
+    </a>
+
+      <a href="/product/red-dawg-tee" style="text-decoration: none; color: inherit;">
+    <div class="product-card">
+      <div class="product-img"> 
+          <img src="/static/red-dawg-tee-shirt.jpeg" alt="Dawg Tee" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
+      </div>
+      <h3>Red Dawg Tee</h3>
+      <p>$35.00</p>
+    </div>
+      </a>
+  </div>
+
+  <section id="about" class="about">
+    <h2>About Dawg House Apparel</h2>
+    <p>Dawg House Apparel is a proud, purpose-driven clothing brand dedicated to honoring the heroes who serve and protect. Dawg House stands behind the men and women who put their lives on the line every day. With bold, meaningful apparel, we aim to foster unity, respect, and unwavering support for our nation’s everyday heroes.</p>
+    <p><strong>What We Offer:</strong> Bold, meaningful apparel that shows pride, respect, and unity. Whether it’s on duty or off, our designs represent loyalty to those who protect and serve.</p>
+    <p><strong>Why Dawg House?</strong> Because we believe in standing strong with those who never back down. Dawg House isn’t just a brand — it’s a movement of support, pride, and purpose.</p>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <p>Instagram: <a href="https://instagram.com/dawghouseapparel.co" target="_blank" style="color:#e63946">@dawghouseapparel.co</a></p>
+    <p>Email: <a href="mailto:dawghouseapparel.co@gmail.com" style="color:#e63946">dawghouseapparel.co@gmail.com</a></p>
+  </section>
+
+  <footer>
+    &copy; 2025 Dawg House Apparel. All rights reserved.
+  </footer>
+</body>
+</html>

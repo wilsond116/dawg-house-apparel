@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart - Dawg House Apparel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: #111;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #333;
+      border-top: 1px solid #333;
+      background-color: #111;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #e63946;
+    }
+
+    .cart-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2.5rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .cart-title {
+      font-size: 2.4rem;
+      font-weight: bold;
+      border-bottom: 2px solid #e63946;
+      padding-bottom: 1rem;
+    }
+
+    .cart-body {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .cart-items {
+      flex: 2.2;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      background: #1a1a1a;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      border: 1px solid #333;
+      transition: transform 0.2s ease;
+    }
+
+    .cart-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .cart-item img {
+      width: 140px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 1.5rem;
+      border: 1px solid #444;
+    }
+
+    .item-details {
+      flex: 1;
+    }
+
+    .item-details h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .item-details p {
+      font-size: 0.95rem;
+      color: #ccc;
+      margin-bottom: 0.3rem;
+    }
+
+    .item-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .item-actions p {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .item-actions a {
+      color: #e63946;
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .order-summary {
+      background-color: #1a1a1a;
+      padding: 2rem;
+      border-radius: 12px;
+      flex: 1.2;
+      min-width: 320px;
+      border: 1px solid #333;
+    }
+
+    .summary-header {
+      font-weight: bold;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.5rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 0.75rem 0;
+      font-size: 1rem;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 1rem;
+      background-color: #e63946;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      border-radius: 6px;
+      margin-top: 2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .checkout-btn:hover {
+      background-color: #c92436;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #000;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      .cart-body {
+        flex-direction: column;
+      }
+
+      .order-summary {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">DAWG HOUSE</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="/cart">Cart</a>
+    </nav>
+  </header>
+
+  <!-- Cart Section -->
+  <div class="cart-container">
+    <h1 class="cart-title">Your Bag ({{ cart|length }} Item{{ 's' if cart|length != 1 else '' }})</h1>
+    <div class="cart-body">
+      <!-- Left: Cart Items -->
+      <div class="cart-items">
+        {% for item in cart %}
+        <div class="cart-item">
+          <img src="{{ item.image_url or '/static/logo.jpg' }}" alt="{{ item.name }}">
+          <div class="item-details">
+            <h3>{{ item.name }}</h3>
+            <p>Color: {{ item.color or 'N/A' }}</p>
+            <p>Size: {{ item.size or 'N/A' }} — <span style="color: lightgreen;">In Stock</span></p>
+          </div>
+          <div class="item-actions">
+            <p>${{ "%.2f"|format(item.price) }}</p>
+            <a href="{{ url_for('remove_from_cart', slug=item.slug) }}">Delete</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Right: Order Summary -->
+      <div class="order-summary">
+        <div class="summary-header">Order Summary</div>
+       <div class="summary-row">
+  <span>Shipping</span>
+  <span>FREE</span>
+</div>
+<div class="summary-row">
+  <span>Tax (7%)</span>
+  <span>${{ "%.2f"|format(total * 0.07) }}</span>
+</div>
+<div class="summary-row" style="font-weight: bold;">
+  <span>Total</span>
+  <span>${{ "%.2f"|format((total * 1.07)) }}</span>
+</div>
+         <a href="/checkout">
+  <button class="checkout-btn" type="button">Checkout</button>
+</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Dawg House Apparel. All rights reserved.
+  </footer>
+</body>
+</html>

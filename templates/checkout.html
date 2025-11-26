@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - Dawg House Apparel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: #111;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #333;
+      background-color: #111;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #e63946;
+    }
+
+    .checkout-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .checkout-form, .order-summary {
+      background: #1a1a1a;
+      padding: 2rem;
+      border-radius: 12px;
+      flex: 1 1 400px;
+      max-width: 500px;
+    }
+
+    .checkout-form h2,
+    .order-summary h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #222;
+      color: #fff;
+    }
+
+    .form-group input:focus {
+      outline: 2px solid #e63946;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background-color: #e63946;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .summary-item span:last-child {
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #000;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      .checkout-wrapper {
+        flex-direction: column;
+        padding: 2rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="logo">DAWG HOUSE</div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="/cart">Cart</a>
+    </nav>
+  </header>
+
+  <!-- Checkout Body -->
+  <div class="checkout-wrapper">
+
+    <!-- Left: Payment Form -->
+   <div class="checkout-form">
+  <h2>Shipping Details</h2>
+  <form action="/create-checkout-session" method="POST">
+
+    <div class="form-group">
+      <label for="first_name">First Name</label>
+      <input type="text" id="first_name" name="first_name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">Last Name</label>
+      <input type="text" id="last_name" name="last_name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Street Address</label>
+      <input type="text" id="address" name="address" required>
+    </div>
+
+    <div class="form-group">
+      <label for="address2">Apt / Suite (optional)</label>
+      <input type="text" id="address2" name="address2">
+    </div>
+
+    <div class="form-group">
+      <label for="city">City</label>
+      <input type="text" id="city" name="city" required>
+    </div>
+
+    <div class="form-group">
+      <label for="state">State</label>
+      <input type="text" id="state" name="state" required>
+    </div>
+
+    <div class="form-group">
+      <label for="zip">ZIP / Postal Code</label>
+      <input type="text" id="zip" name="zip" required>
+    </div>
+
+    <button type="submit" class="submit-btn">Continue to Payment</button>
+  </form>
+</div>
+
+    <!-- Center: Order Summary -->
+    <div class="order-summary">
+      <h2>Your Order</h2>
+      {% for item in cart %}
+      <div class="summary-item">
+        <span>{{ item.name }} ({{ item.size or 'N/A' }})</span>
+        <span>${{ "%.2f"|format(item.price) }}</span>
+      </div>
+      {% endfor %}
+      <div class="summary-item">
+  <span>Subtotal</span>
+  <span>${{ "%.2f"|format(total) }}</span>
+</div>
+
+<div class="summary-item">
+  <span>Shipping</span>
+  <span>FREE</span>
+</div>
+
+<div class="summary-item">
+  <span>Tax (7%)</span>
+  <span>${{ "%.2f"|format(total * 0.07) }}</span>
+</div>
+
+<div class="summary-item" style="border-top: 1px solid #333; padding-top: 1rem;">
+  <span>Total</span>
+  <span>${{ "%.2f"|format((total * 1.07)) }}</span>
+</div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Dawg House Apparel. All rights reserved.
+  </footer>
+</body>
+</html>
